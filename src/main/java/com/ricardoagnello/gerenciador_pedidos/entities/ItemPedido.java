@@ -3,6 +3,8 @@ package com.ricardoagnello.gerenciador_pedidos.entities;
 import java.io.Serial;
 import java.io.Serializable;
 
+import com.ricardoagnello.gerenciador_pedidos.utils.CalculoUtil;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -46,6 +48,7 @@ public class ItemPedido implements Serializable {
     @DecimalMin(value = "0.01", message = "O valor unitário deve ser pelo menos 0.01")
     private Double valorUnitario;
 
+    @SuppressWarnings("unused")
     private Double valorTotalItem;
 
     public ItemPedido(Pedido pedido, String descricao, Integer quantidade, Double valorUnitario) {
@@ -53,6 +56,10 @@ public class ItemPedido implements Serializable {
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.valorUnitario = valorUnitario;
+    }
+
+    public Double getValorTotalItem() {
+        return CalculoUtil.calcularValorItem(this);
     }
 
     
