@@ -1,8 +1,6 @@
 package com.ricardoagnello.gerenciador_pedidos.exceptions;
 
 import java.time.LocalDateTime;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
@@ -12,20 +10,17 @@ import lombok.Setter;
 @Setter
 public class ErrorResponse {
 
-    private int status;
     private String message;
-    private Map<String, String> errors;
-    
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime timestamp = LocalDateTime.now();
+    private String details;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm")
+    private LocalDateTime timestamp;
 
-    public ErrorResponse(int status, String message, Map<String, String> errors, LocalDateTime timestamp) {
-        this.status = status;
+    public ErrorResponse(String message, String details, LocalDateTime timestamp) {
+        super();
         this.message = message;
-        this.errors = errors;
+        this.details = details;
         this.timestamp = timestamp;
-    }
 
-    
+    }
 
 }
