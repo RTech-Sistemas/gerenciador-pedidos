@@ -20,6 +20,8 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.ricardoagnello.gerenciador_pedidos.utils.CalculoUtil;
+
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -43,12 +45,17 @@ public class Pedido implements Serializable {
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemPedido> itens = new ArrayList<>();
 
+    @SuppressWarnings("unused")
     private Double valorTotalPedido;
 
     public Pedido(String nomeCliente, LocalDate data, List<ItemPedido> itens, Double valorTotalPedido) {
         this.nomeCliente = nomeCliente;
         this.data = data;
         this.itens = itens;
+    }
+
+    public Double getValorTotalPedido() {
+        return CalculoUtil.calcularValorTotalPedido(this.itens);
     }
 
 }
